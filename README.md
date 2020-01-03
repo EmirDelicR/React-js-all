@@ -20,16 +20,10 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - [Adding a CSS Preprocessor (Sass, Less etc.)](#adding-a-css-preprocessor-sass-less-etc)
 - [Adding Images, Fonts, and Files](#adding-images-fonts-and-files)
 - [Adding a Router](#adding-a-router)
-
-* [Adding Custom Environment Variables](#adding-custom-environment-variables)
-  - [Referencing Environment Variables in the HTML](#referencing-environment-variables-in-the-html)
-  - [Adding Temporary Environment Variables In Your Shell](#adding-temporary-environment-variables-in-your-shell)
-  - [Adding Development Environment Variables In `.env`](#adding-development-environment-variables-in-env)
-* [Can I Use Decorators?](#can-i-use-decorators)
-* [Fetching Data with AJAX Requests](#fetching-data-with-ajax-requests)
-* [Integrating with an API Backend](#integrating-with-an-api-backend)
+- [Adding Custom Environment Variables](#adding-custom-environment-variables)
+- [Integrating with an API Backend](#integrating-with-an-api-backend)
   - [Node](#node)
-  - [Ruby on Rails](#ruby-on-rails)
+
 * [Proxying API Requests in Development](#proxying-api-requests-in-development)
   - ["Invalid Host Header" Errors After Configuring Proxy](#invalid-host-header-errors-after-configuring-proxy)
   - [Configuring the Proxy Manually](#configuring-the-proxy-manually)
@@ -87,6 +81,8 @@ You can find the most recent version of this guide [here](https://github.com/fac
   - [Moment.js locales are missing](#momentjs-locales-are-missing)
 * [Alternatives to Ejecting](#alternatives-to-ejecting)
 * [Something Missing?](#something-missing)
+
+- [React usage guide](#usage-guide)
 
 ###################################################################
 
@@ -524,3 +520,17 @@ You can find the companion GitHub repository [here](https://github.com/fullstack
 [TOP](#content)
 
 [TOP](#content)[TOP](#content)[TOP](#content)[TOP](#content)[TOP](#content)[TOP](#content)[TOP](#content)
+
+############################################################################
+
+## Usage Guide
+
+```console
+create-react-app <app-name>
+cd <app-name>
+npm start
+```
+
+**_check 1-react-intro README.md file_** - here you can read about Class component, function component, JSX, Props ...
+
+[TOP](#content)

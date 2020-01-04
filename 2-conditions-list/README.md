@@ -1,13 +1,13 @@
 **_Some useful links:_**
 
 [Conditional Rendering](https://reactjs.org/docs/conditional-rendering.html)<br/>
-[Lists & Keys](https://reactjs.org/docs/lists-and-keys.html)
+[Lists & Keys](https://reactjs.org/docs/lists-and-keys.html)<br/>
+[Error Boundaries](https://reactjs.org/docs/error-boundaries.html)
 
 ## content
 
 - [Conditional rendering](#conditional-rendering)
 - [Rendering lists](#rendering-lists)
-- [Styling components and elements](#styling)
 
 ## Conditional Rendering
 
@@ -113,13 +113,6 @@ class App extends Component {
     return <div className="App">{personTemplate}</div>;
   }
 }
-```
-
-[TOP](#content)
-
-## styling
-
-```javascript
 ```
 
 [TOP](#content)

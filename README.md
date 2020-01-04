@@ -533,4 +533,6 @@ npm start
 
 **_check 1-react-intro README.md file_** - here you can read about Class component, function component, JSX, Props ...
 
+**_check 2-conditions-list README.md file_** - here you can read about Conditional rendering, List rendering and Debugging and Error Boundary
+
 [TOP](#content)

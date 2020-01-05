@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useContext } from "react";
+import AuthContext from "../../context/auth-context";
 
 const WithHooks = props => {
   /**
@@ -14,7 +15,23 @@ const WithHooks = props => {
     };
   }, []);
 
-  return <p>Test - With Hooks</p>;
+  const toggleBtnRef = useRef(null);
+
+  useEffect(() => {
+    toggleBtnRef.current.click();
+  });
+
+  const authContext = useContext(AuthContext);
+
+  return (
+    <div>
+      <p>Test - With Hooks</p>
+      <button ref={toggleBtnRef} onClick={() => console.log("CLICKED")}>
+        WILL BE CLICKED AUTOMATICALLY
+      </button>
+      this is from Hooks: {authContext.authenticated.toString()}
+    </div>
+  );
 };
 
 export default WithHooks;

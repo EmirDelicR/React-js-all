@@ -4,6 +4,9 @@ import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Wrapper/Cockpit";
 import Lifecycle from "../components/Lifecycle/Lifecycle";
 import WithHooks from "../components/Lifecycle/WithHooks";
+import HocWrapped from "../components/HocWrapped/HocWrapped";
+
+import AuthContext from "../context/auth-context";
 
 class App extends Component {
   state = {
@@ -12,8 +15,11 @@ class App extends Component {
       { id: "2", name: "Test_2" },
       { id: "3", name: "Test_3" }
     ],
-    show: false
+    show: false,
+    authenticated: false
   };
+
+  static contextType = AuthContext;
 
   deleteHandler = index => {
     const persons = [...this.state.persons];
@@ -40,6 +46,17 @@ class App extends Component {
     this.setState({ persons });
   };
 
+  componentDidMount() {
+    console.log("CONTEXT", this.context);
+    this.inpEl.focus();
+  }
+
+  loginHandler = () => {
+    console.log("Login executed!");
+    const auth = !this.state.authenticated;
+    this.setState({ authenticated: auth });
+  };
+
   render() {
     let persons = null;
 
@@ -55,14 +72,30 @@ class App extends Component {
 
     return (
       <div className="App">
+        {this.context.authenticated.toString()}
         <Lifecycle />
         <WithHooks />
-        <Cockpit
-          persons={this.state.persons}
-          show={this.state.show}
-          clicked={this.toggleHandler}
+
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+          <Cockpit
+            persons={this.state.persons}
+            show={this.state.show}
+            clicked={this.toggleHandler}
+          />
+          {persons}
+        </AuthContext.Provider>
+
+        <HocWrapped />
+        <input
+          ref={inp => {
+            this.inpEl = inp;
+          }}
         />
-        {persons}
       </div>
     );
   }

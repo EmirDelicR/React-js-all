@@ -1964,4 +1964,6 @@ npm start
 
 **_check 2-conditions-list README.md file_** - here you can read about Conditional rendering, List rendering and Debugging and Error Boundary
 
+**_check 3-lifecycle README.md file_** - here you can read about: Better Folder structure, Life-cycle in class and React Hooks, High Order Components, State, Props Types, Refs, Context API
+
 [TOP](#content)

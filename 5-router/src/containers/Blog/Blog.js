@@ -1,70 +1,71 @@
-import React, { Component } from "react";
+import React, { Suspense, Component, lazy } from "react";
+import { Route, NavLink, Switch } from "react-router-dom";
 
 import "./Blog.css";
-import { makeApiRequest, isResponseSuccess } from "../../utils/api/api";
-import { API_REQUEST_TYPES } from "../../utils/constants";
 
-import Post from "../../components/Post/Post";
-import FullPost from "../../components/FullPost/FullPost";
-import NewPost from "../../components/NewPost/NewPost";
+import Posts from "./Posts/Posts";
+const AsyncNewPost = lazy(() => import('./NewPost/NewPost'))
+
+// import asyncComponent from "../../hoc/asyncComponent";
+// const AsyncNewPost = asyncComponent(() => {
+//   return import("./NewPost/NewPost");
+// });
 
 class Blog extends Component {
   state = {
-    posts: [],
-    selectedPostId: null,
-    error: false
-  };
-
-  async componentDidMount() {
-    this.setState({ error: false });
-
-    const response = await makeApiRequest("/posts", API_REQUEST_TYPES.get);
-
-    if (!isResponseSuccess(response)) {
-      this.setState({ error: true });
-      return;
-    }
-
-    const posts = response.data.slice(0, 4);
-
-    const updatePosts = posts.map(post => {
-      return {
-        ...post,
-        author: "Some Author"
-      };
-    });
-
-    this.setState({ posts: updatePosts });
-  }
-
-  postSelectedHandler = id => {
-    this.setState({ selectedPostId: id });
+    auth: true
   };
 
   render() {
-    let posts = <p style={{ textAlign: "center" }}>Something went wrong!</p>;
-    if (!this.state.error) {
-      posts = this.state.posts.map(post => {
-        return (
-          <Post
-            key={post.id}
-            title={post.title}
-            author={post.author}
-            clicked={() => this.postSelectedHandler(post.id)}
-          />
-        );
-      });
-    }
-
     return (
-      <div>
-        <section className="Posts">{posts}</section>
-        <section>
-          <FullPost id={this.state.selectedPostId} />
-        </section>
-        <section>
-          <NewPost />
-        </section>
+      <div className="Blog">
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <NavLink
+                  to="/posts/"
+                  exact
+                  activeClassName="my-active"
+                  activeStyle={{
+                    color: "#fa923f",
+                    textDecoration: "underline"
+                  }}
+                >
+                  Posts
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={{
+                    pathname: "/new-post",
+                    hash: "#submit",
+                    search: "?quick-submit=true"
+                  }}
+                >
+                  New Posts
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        </header>
+
+        <Switch>
+           {/* 
+             Old way with lazy load function
+             <Route path="/new-post" component={AsyncNewPost}         
+           */}
+
+          {this.state.auth ? (
+            <Route path="/new-post" render={() => <Suspense fallback={<div>Loading...</div>}><AsyncNewPost/></Suspense> } />
+          ) : null}
+          ;
+          <Route path="/posts/" component={Posts} />
+
+          {/* Handle 404 page, put this alway last */}
+          <Route render={() => <h1>Not found</h1>} />
+
+        </Switch>
       </div>
     );
   }

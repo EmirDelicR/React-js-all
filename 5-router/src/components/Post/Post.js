@@ -1,4 +1,5 @@
 import React from "react";
+// import { withRouter } from 'react-router-dom';
 
 import "./Post.css";
 
@@ -11,4 +12,6 @@ const post = props => (
   </article>
 );
 
+/** This give you option to pass router props to childe (in props) */
+// export default withRouter(post);
 export default post;

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import "./NewPost.css";
-import { makeApiRequest, isResponseSuccess } from "../../utils/api/api";
-import { API_REQUEST_TYPES } from "../../utils/constants";
+import { makeApiRequest, isResponseSuccess } from "../../../utils/api/api";
+import { API_REQUEST_TYPES } from "../../../utils/constants";
 
 class NewPost extends Component {
   state = {
@@ -10,6 +10,10 @@ class NewPost extends Component {
     content: "",
     author: "Some Author"
   };
+
+  componentDidMount() {
+    console.log('Router Props: ', this.props)
+  }
 
   postDataHandler = async () => {
     const data = {
@@ -27,6 +31,7 @@ class NewPost extends Component {
       console.log("Error: ", response);
       return;
     }
+    this.props.history.replace('/posts');
     console.log(response);
   };
 

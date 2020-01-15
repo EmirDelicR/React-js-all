@@ -81,6 +81,36 @@ class App extends Component {
 export default App;
 ```
 
+Or short way
+
+```js
+import React, { Component } from "react";
+import Person from "./components/Person";
+
+class App extends Component {
+  state = {
+    show: false
+  };
+
+  toggleHandler = () => {
+    const show = !this.state.show;
+    this.setState({ show });
+  };
+
+  render() {
+     return (
+      <div className="App">
+        <h1>Press this button to conditional render content!</h1>
+        <button onClick={this.toggleHandler}>PRESS ME</button>
+        {this.state.show && <div><Person name="Class" /></div>}
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
 [TOP](#content)
 
 ## Rendering Lists

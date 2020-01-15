@@ -162,6 +162,13 @@ render() {
 }
 ```
 
+Pass arguments
+
+```html
+<button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
+<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+```
+
 [TOP](#content)
 
 ## Use State Hook
@@ -222,6 +229,67 @@ export default methodReference;
 // OR
 <MethodReference updateName={() => this.switchNameHandler(1)} />;
 // Using Bind is performance better
+```
+
+In class 
+
+```js
+import React, { Component } from 'react';
+
+class Toggle extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { isToggleOn: true };
+    // can be done in constructor Or during the function call [this.handleClick.bind(this)]
+    // This binding is necessary to make `this` work in the callback
+    // this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick.bind(this)}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    );
+  }
+}
+
+export default Toggle;
+```
+
+Or just use ES6 syntax
+
+```js
+import React, { Component } from 'react';
+
+class Toggle extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { isToggleOn: true };
+  }
+
+  handleClick = () => {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  };
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    );
+  }
+}
+
+export default Toggle;
 ```
 
 [TOP](#content)

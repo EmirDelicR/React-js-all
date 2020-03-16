@@ -1966,10 +1966,10 @@ npm start
 
 **_check 3-lifecycle README.md file_** - here you can read about: Better Folder structure, Life-cycle in class and React Hooks, High Order Components, State, Props Types, Refs, Context API
 
-**_check 4-http-request README.md file_** - here you can read about: Axios, Request, Error Handler
+**_check 4-http-request README.md file_** - here you can read about: Axios, Make Request, Error handler
 
-**_check 5-router README.md file_** - here you can read about: React Router
+**_check 5-router README.md file_** - here you can read about: Router, Router Components, withRouter, Lazy Load
 
-**_check 6-redux README.md file_** - here you can read about: React Redux state management
+**_check 6-redux README.md file_** - here you can read about: React Redux state
 
 [TOP](#content)

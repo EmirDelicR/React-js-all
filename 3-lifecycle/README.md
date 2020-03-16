@@ -167,6 +167,21 @@ export default withClass;
 
 ## state
 
+Only in constructor you can set state directly
+
+```js
+constructor(props) {
+  super(props);
+  this.state = {date: new Date()};
+}
+```
+
+Update state
+
+```js
+this.setState({comment: 'Hello'});
+```
+
 Update the state if depending on other state in this way
 
 ```js

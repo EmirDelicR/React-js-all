@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import "./Layout.css";
 
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
@@ -38,10 +38,10 @@ class Layout extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     isAuthenticated: state.auth.token !== null
-//   };
-// };
-export default Layout;
-// export default connect(mapStateToProps)(Layout);
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null
+  };
+};
+
+export default connect(mapStateToProps)(Layout);

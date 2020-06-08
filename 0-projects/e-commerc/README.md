@@ -18,13 +18,13 @@ npm install react-router-dom
 
 ```js
 /* index.js */
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
   <Router>
     <App />
   </Router>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 ```
 
@@ -32,7 +32,7 @@ In component
 
 ```js
 /* App.js */
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, Link, Switch } from 'react-router-dom';
 
 /* BUild nav bar component */
 <nav>
@@ -66,7 +66,7 @@ import { Route, Link, Switch } from "react-router-dom";
 **_Redirect and render_**
 
 ```js
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 
 <Route
   path="/sign-in"
@@ -80,7 +80,7 @@ This is HOC - Higher order component, it allows that any component have access t
 
 ```js
 /* Item.js */
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 const Item = ({ item, history }) => {};
 
@@ -94,7 +94,7 @@ export default withRouter(Item);
 [Adding Images, files](https://create-react-app.dev/docs/adding-images-fonts-and-files/)
 
 ```js
-import { ReactComponent as Logo } from "../../assets/crown.svg";
+import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 <Logo className="Logo" />;
 ```
@@ -111,16 +111,16 @@ class SignIn extends Component {
     super();
 
     this.state = {
-      email: "",
-      password: ""
+      email: '',
+      password: '',
     };
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { value, name } = event.target;
     this.setState({ [name]: value });
   };
@@ -170,13 +170,13 @@ export default SignIn;
 
 ```js
 const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: '',
+  authDomain: '',
+  databaseURL: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: '',
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -191,9 +191,9 @@ npm install firebase --save
 Create folder firebase in src/firebase/utils.js
 
 ```js
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -202,7 +202,7 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MSG_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
@@ -227,7 +227,7 @@ export const firestore = firebase.firestore();
 
 /* GOOGLE login */
 const googleProvider = new firebase.auth.GoogleAuthProvider();
-googleProvider.setCustomParameters({ prompt: "select_account" });
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
@@ -243,7 +243,7 @@ Choose Google and press edit icon, choose email and save, check the enable butto
 In component
 
 ```js
-import { signInWithGoogle } from "../../../firebase/utils";
+import { signInWithGoogle } from '../../../firebase/utils';
 
 <FormButton onClick={signInWithGoogle}>Sign In with Google</FormButton>;
 ```
@@ -251,14 +251,14 @@ import { signInWithGoogle } from "../../../firebase/utils";
 **_Access user that is login_**
 
 ```js
-import { auth } from "../../firebase/utils";
+import { auth } from '../../firebase/utils';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      currentUser: null
+      currentUser: null,
     };
   }
 
@@ -267,7 +267,7 @@ class App extends Component {
 
   componentDidMount() {
     /* Get login user */
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       this.setState({ currentUser: user });
     });
   }
@@ -314,8 +314,8 @@ const makeApiCall = async (url, method = 'GET', dataToSend = null) => {
 OR you can use **_firestore_**
 
 ```js
-const userRef = firestore.doc("/users/:userId");
-firestore.collections("/users");
+const userRef = firestore.doc('/users/:userId');
+firestore.collections('/users');
 
 /* 
   After collection is get use 
@@ -393,7 +393,7 @@ npm i redux redux-logger react-redux
 ```js
 /* In index.js */
 
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <Provider>
@@ -401,7 +401,7 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 ```
 
@@ -421,10 +421,10 @@ const userReducer = (currentState, action) => {
    */
 
   switch (action.type) {
-    case "SET_CURRENT_USER":
+    case 'SET_CURRENT_USER':
       return {
         ...currentState,
-        currentUser: action.payload
+        currentUser: action.payload,
       };
     default:
       return currentState;
@@ -436,12 +436,12 @@ const userReducer = (currentState, action) => {
 
 ```js
 /* root-reducers.js */
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import userReducer from "./user/user.reducer";
+import userReducer from './user/user.reducer';
 
 const REDUCERS = {
-  user: userReducer
+  user: userReducer,
 };
 
 export default combineReducers(REDUCERS);
@@ -451,9 +451,9 @@ export default combineReducers(REDUCERS);
 
 ```js
 /* redux-state/index.js */
-import { createStore, applyMiddleware } from "redux";
-import logger from "redux-logger";
-import rootReducer from "./root-reducer";
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import rootReducer from './root-reducer';
 
 const middlewares = [logger];
 
@@ -466,8 +466,8 @@ export default store;
 ```js
 /* index.js */
 
-import { Provider } from "react-redux";
-import store from "./redux-state/index";
+import { Provider } from 'react-redux';
+import store from './redux-state/index';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -475,16 +475,16 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 ```
 
 **_Actions_**
 
 ```js
-const setCurrentUser = user => ({
-  type: "SET_CURRENT_USER",
-  payload: user
+const setCurrentUser = (user) => ({
+  type: 'SET_CURRENT_USER',
+  payload: user,
 });
 ```
 
@@ -492,21 +492,21 @@ const setCurrentUser = user => ({
 
 ```js
 /* Connect is HOC that connect component to redux (check Header.js file)*/
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
 });
 
 export default connect(mapStateToProps)(Header);
 
 /* Check App.js */
-import { setCurrentUser } from "../../redux-state/user/user.actions";
+import { setCurrentUser } from '../../redux-state/user/user.actions';
 
 // Remove Constructor from class
 // Rename all this.setState to this.props.[mapDispatchToProps key]
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(null, mapDispatchToProps)(App);
@@ -527,18 +527,18 @@ How this work
 
 ```js
 /** Icon.js file **/
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
 /* Step 4. this is return state.cart */
-const currentCart = state => state.cart;
+const currentCart = (state) => state.cart;
 
 /* Step 3. the function make reference to [currentCart] */
 /* Step 5. this is accessing then  state.cart and returns cartItems */
-const selectCartItems = createSelector([currentCart], cart => cart.cartItems);
+const selectCartItems = createSelector([currentCart], (cart) => cart.cartItems);
 
 /* Step 2. the function make reference to [selectCartItems] */
 /* Step 6. this is accessing then cartItems and returns total quantity */
-const selectCartItemsCount = createSelector([selectCartItems], cartItems =>
+const selectCartItemsCount = createSelector([selectCartItems], (cartItems) =>
   cartItems.reduce((acc, item) => acc + item.quantity, 0)
 );
 
@@ -546,24 +546,24 @@ export { selectCartItems, selectCartItemsCount };
 
 /* Cart/Icon/Icon.js */
 
-import { selectCartItemsCount } from "../../../redux-state/cart/cart.selectors";
+import { selectCartItemsCount } from '../../../redux-state/cart/cart.selectors';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   /* Step 1. the function from selector is called */
-  itemCount: selectCartItemsCount(state)
+  itemCount: selectCartItemsCount(state),
 });
 ```
 
 Option
 
 ```js
-import { createStructuredSelector } from "reselect";
+import { createStructuredSelector } from 'reselect';
 /* This is just passing top level state automatically to functions
  * like : currentUser: selectCurrentUser(state)
  */
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  isCartHidden: selectCartHiddenStatus
+  isCartHidden: selectCartHiddenStatus,
 });
 ```
 
@@ -577,24 +577,24 @@ npm i redux-persist
 
 ```js
 /* in redux-store/index.js */
-import { persistStore } from "redux-persist";
+import { persistStore } from 'redux-persist';
 
 export const persistor = persistStore(store);
 
 /* in redux-store root-reducer.js */
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
   /* This here is cartReducer, add more if need*/
-  whitelist: ["cart"]
+  whitelist: ['cart'],
 };
 
 const REDUCERS = {
   user: userReducer,
-  cart: cartReducer
+  cart: cartReducer,
 };
 
 const ROOT_REDUCER = combineReducers(REDUCERS);
@@ -602,8 +602,8 @@ const ROOT_REDUCER = combineReducers(REDUCERS);
 export default persistReducer(persistConfig, ROOT_REDUCER);
 
 /* in root index.js */
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./redux-state/index";
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux-state/index';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -613,7 +613,7 @@ ReactDOM.render(
       </PersistGate>
     </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 ```
 
@@ -625,7 +625,9 @@ ReactDOM.render(
 /* In CollectionPage.js */
 const mapStateToProps = (state, ownProps) => ({
   /* You can pass own props that si history in the end */
-  shopCollection: selectShopCollection(ownProps.match.props.collectionId)(state)
+  shopCollection: selectShopCollection(ownProps.match.props.collectionId)(
+    state
+  ),
 });
 
 export default connect(mapStateToProps)(Collection);
@@ -640,16 +642,16 @@ npm i react-stripe-checkout
 ```
 
 ```js
-import React from "react";
-import StripeCheckout from "react-stripe-checkout";
+import React from 'react';
+import StripeCheckout from 'react-stripe-checkout';
 
 const StripeButton = ({ price }) => {
   /** Price must be in cents */
   const priceForStripe = price * 100;
   const publicKey = process.env.REACT_APP_STRIPE_KEY;
 
-  const onToken = token => {
-    console.log("Stripe Token: ", token);
+  const onToken = (token) => {
+    console.log('Stripe Token: ', token);
     /** Process payment here  */
   };
   return (

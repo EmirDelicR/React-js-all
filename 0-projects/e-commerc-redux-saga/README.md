@@ -2,10 +2,86 @@
 
 ## content
 
+- [Store data from JSON to firebase](#json-to-firebase)
 - [Redux-saga](#redux-saga)
 - [Generators](#generators)
 
+## Json To Firebase
+
+[TOP](#content)
+
+```js
+// in firebase/utils
+
+export const addCollectionsAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+
+  const batch = firestore.batch();
+  objectsToAdd.forEach((obj) => {
+    const newDocumentRef = collectionRef.doc();
+    console.log(obj);
+    batch.set(newDocumentRef, obj);
+  });
+
+  return await batch.commit();
+};
+
+// in App.js file
+import {
+  addCollectionsAndDocuments,
+} from '../../firebase/utils';
+import { selectCollectionsForPreview } from '../../redux-state/shop/shop.selectors';
+
+componentDidMount() {
+  const { collectionArray } = this.props;
+
+  addCollectionsAndDocuments(
+    'collections',
+    collectionArray.map(({ title, items }) => ({ title, items }))
+  );
+}
+
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state),
+  collectionArray: selectCollectionsForPreview(state),
+});
+```
+
 ## Redux Saga
+
+```console
+npm i redux-saga
+```
+
+```js
+// in store/sate/redux-state
+import createSagaMiddleware from 'redux-saga';
+import { fetchCollectionsStart } from './shop/shop.sagas';
+
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [logger, sagaMiddleware];
+
+sagaMiddleware.run(fetchCollectionsStart);
+
+// create file shop.saga.js
+import { takeEvery } from 'redux-saga/effects';
+
+import ShopActionsTypes from './shop.types';
+
+export function* fetchCollectionsAsync() {
+  yield console.log('I am fired');
+}
+
+export function* fetchCollections() {
+  yield takeEvery(
+    ShopActionsTypes.FETCH_COLLECTIONS_START,
+    fetchCollectionsAsync
+  );
+}
+```
 
 [TOP](#content)
 

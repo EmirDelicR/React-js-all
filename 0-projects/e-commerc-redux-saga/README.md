@@ -5,6 +5,7 @@
 - [Store data from JSON to firebase](#json-to-firebase)
 - [Redux-saga](#redux-saga)
 - [Generators](#generators)
+- [Take, TakeEvery, TakeLast](#saga-effect)
 
 ## Json To Firebase
 
@@ -67,17 +68,33 @@ const middlewares = [logger, sagaMiddleware];
 sagaMiddleware.run(fetchCollectionsStart);
 
 // create file shop.saga.js
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, call, put } from 'redux-saga/effects';
+import {
+  firestore,
+  convertCollectionsSnapshotToMap,
+} from '../../firebase/utils';
+import { SHOP_ACTION_TYPES } from './shop.types';
+import { fetchCollectionSuccess, fetchCollectionFailure } from './shop.actions';
 
-import ShopActionsTypes from './shop.types';
-
-export function* fetchCollectionsAsync() {
-  yield console.log('I am fired');
+function* fetchCollectionsAsync() {
+  try {
+    const collectionRef = firestore.collection('collections');
+    const snapshot = yield collectionRef.get();
+    // call function is similar to await
+    const collectionsMap = yield call(
+      convertCollectionsSnapshotToMap,
+      snapshot
+    );
+    // put function is dispatch
+    yield put(fetchCollectionSuccess(collectionsMap));
+  } catch (err) {
+    yield put(fetchCollectionFailure(err.message));
+  }
 }
 
-export function* fetchCollections() {
+export function* fetchCollectionsStart() {
   yield takeEvery(
-    ShopActionsTypes.FETCH_COLLECTIONS_START,
+    SHOP_ACTION_TYPES.FETCH_COLLECTIONS_START,
     fetchCollectionsAsync
   );
 }
@@ -101,6 +118,43 @@ console.log(g.next());
 // { "value": 15, "done": false }
 console.log(g.next());
 // { "value": 25, "done": true }
+```
+
+[TOP](#content)
+
+## Saga Effect
+
+#### take
+
+Take is reusing generator so that means it wait until first is finish then trigger other call
+
+```js
+import { take } from 'redux-saga/effects';
+export *function incrementSaga() {
+  yield take('ACTION')
+}
+```
+
+#### takeEvery
+
+TakeEvery is not reusing generator so that means it trigger new function on every call
+
+```js
+import { takeEvery } from 'redux-saga/effects';
+export *function incrementSaga() {
+  yield takeEvery('ACTION', cb)
+}
+```
+
+#### takeLatest
+
+TakeLatest is only use last call (cancel all previous)
+
+```js
+import { takeLatest } from 'redux-saga/effects';
+export *function incrementSaga() {
+  yield takeLatest('ACTION', cb)
+}
 ```
 
 [TOP](#content)

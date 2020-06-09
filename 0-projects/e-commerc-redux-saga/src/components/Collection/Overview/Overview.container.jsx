@@ -6,7 +6,7 @@ import WithSpinner from '../../Form/Spinner/spinner.component';
 import Overview from './Overview';
 
 const mapStateToProps = (state) => ({
-  isFetching: selectIsShopCollectionFetching(state),
+  isLoading: selectIsShopCollectionFetching(state),
 });
 
 const OverviewContainer = compose(

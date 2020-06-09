@@ -6,6 +6,7 @@ import './CollectionPage.scss';
 import Item from '../../components/Collection/Item/Item';
 
 const Collection = ({ collection }) => {
+  console.log('CCCC: ', collection);
   return (
     <div className="collection-page">
       <h2 className="title">{collection.title}</h2>

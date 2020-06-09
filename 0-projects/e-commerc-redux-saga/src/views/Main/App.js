@@ -9,7 +9,7 @@ import { selectCurrentUser } from '../../redux-state/user/user.selectors';
 import HomePage from '../Home/HomePage';
 import ShopPage from '../Shop/ShopPage';
 import CheckoutPage from '../Checkout/CheckoutPage';
-import CollectionPage from '../Collection/CollectionPage';
+// import CollectionPage from '../Collection/CollectionPage';
 
 import Header from '../../components/Header/Header';
 import SignIn from '../../components/Sign/In/In';
@@ -62,7 +62,7 @@ class App extends Component {
             }
           />
           <Route exact path="/checkout" component={CheckoutPage} />
-          <Route path={`/shop/:collectionId`} component={CollectionPage} />
+          {/* <Route path={`/shop/:collectionId`} component={CollectionPage} /> */}
           <Route exact path="/shop" component={ShopPage} />
           <Route exact path="/" component={HomePage} />
         </Switch>

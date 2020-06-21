@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './App.css';
@@ -15,37 +15,32 @@ import Header from '../../components/Header/Header';
 import SignIn from '../../components/Sign/In/In';
 import SignUp from '../../components/Sign/Up/Up';
 
-class App extends Component {
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+const App = ({ checkUserSession, currentUser }) => {
+  useEffect(() => {
     checkUserSession();
-  }
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route
-            path="/sign-in"
-            render={() =>
-              this.props.currentUser ? <Redirect to="/" /> : <SignIn />
-            }
-          />
-          <Route
-            path="/sign-up"
-            render={() =>
-              this.props.currentUser ? <Redirect to="/" /> : <SignUp />
-            }
-          />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          {/* <Route path={`/shop/:collectionId`} component={CollectionPage} /> */}
-          <Route exact path="/shop" component={ShopPage} />
-          <Route exact path="/" component={HomePage} />
-        </Switch>
-      </div>
-    );
-  }
-}
+  }, [checkUserSession]);
+
+  return (
+    <div className="App">
+      <Header />
+      <Switch>
+        <Route
+          path="/sign-in"
+          render={() => (currentUser ? <Redirect to="/" /> : <SignIn />)}
+        />
+        <Route
+          path="/sign-up"
+          render={() => (currentUser ? <Redirect to="/" /> : <SignUp />)}
+        />
+        <Route exact path="/checkout" component={CheckoutPage} />
+        {/* <Route path={`/shop/:collectionId`} component={CollectionPage} /> */}
+        <Route exact path="/shop" component={ShopPage} />
+        <Route exact path="/" component={HomePage} />
+      </Switch>
+    </div>
+  );
+};
+
 /** Redux state to prop map */
 const mapStateToProps = (state) => ({
   currentUser: selectCurrentUser(state),

@@ -1,0 +1,13 @@
+.sign-in-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20vh;
+
+  .sign-in {
+    .button-wrap {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
